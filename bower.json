@@ -1,0 +1,8 @@
+{
+  "name": "isotope",
+  "repo": "desandro/isotope",
+  "version": "1.5.25",
+  "description": "Format and manipulate numbers.",
+  "scripts": [ "jquery.isotope.js" ],
+  "main": "jquery.isotope.js"
+}
