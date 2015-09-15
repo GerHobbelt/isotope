@@ -1,7 +1,7 @@
 {
-  "name": "isotope",
+  "name": "isotope-customized",
   "version": "2.2.2",
-  "description": "Filter and sort magical layouts",
+  "description": "Isotope with option to force elements to stay in position n in list of elements.",
   "main": "js/isotope.js",
   "dependencies": {
     "get-size": "~1.2.2",

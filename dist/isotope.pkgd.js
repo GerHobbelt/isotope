@@ -2988,7 +2988,7 @@ return Outlayer;
 **/
 
 ( function( window, factory ) {
-'use strict';
+
   // universal module definition
   if ( typeof define == 'function' && define.amd ) {
     // AMD
@@ -3010,7 +3010,7 @@ return Outlayer;
   }
 
 }( window, function factory( Outlayer ) {
-'use strict';
+
 
 // -------------------------- Item -------------------------- //
 
@@ -3223,7 +3223,7 @@ return Item;
 }));
 
 /*!
- * Masonry v3.3.1
+ * Masonry v3.3.2
  * Cascading grid layout library
  * http://masonry.desandro.com
  * MIT License
@@ -3457,7 +3457,7 @@ return Item;
   }
 
 }( window, function factory( LayoutMode, Masonry ) {
-'use strict';
+
 
 // -------------------------- helpers -------------------------- //
 
@@ -3532,7 +3532,7 @@ function extend( a, b ) {
   }
 
 }( window, function factory( LayoutMode ) {
-'use strict';
+
 
 var FitRows = LayoutMode.create('fitRows');
 
@@ -3599,7 +3599,7 @@ return FitRows;
   }
 
 }( window, function factory( LayoutMode ) {
-'use strict';
+
 
 var Vertical = LayoutMode.create( 'vertical', {
   horizontalAlignment: 0
@@ -3642,17 +3642,17 @@ return Vertical;
 
   if ( typeof define == 'function' && define.amd ) {
     // AMD
-    define( [
+    define( 'isotope/js/isotope',[
         'outlayer/outlayer',
         'get-size/get-size',
         'matches-selector/matches-selector',
         'fizzy-ui-utils/utils',
-        'isotope/js/item',
-        'isotope/js/layout-mode',
+        './item',
+        './layout-mode',
         // include default layout modes
-        'isotope/js/layout-modes/masonry',
-        'isotope/js/layout-modes/fit-rows',
-        'isotope/js/layout-modes/vertical'
+        './layout-modes/masonry',
+        './layout-modes/fit-rows',
+        './layout-modes/vertical'
       ],
       function( Outlayer, getSize, matchesSelector, utils, Item, LayoutMode ) {
         return factory( window, Outlayer, getSize, matchesSelector, utils, Item, LayoutMode );
@@ -3826,7 +3826,23 @@ var getText = docElem.textContent ?
       hideReveal();
     }
 
+    //this._sort();
+    var filteredElements = [];
+    var articles = [];
+    var articlePositions = this.options.articlePositions;
+    this.filteredItems.forEach(function (item) {
+      if (! $(item.element).hasClass("article")) {
+          filteredElements.push(item);
+      } else {
+          articles.push(item);
+      }
+    });
+    this.filteredItems = filteredElements;
     this._sort();
+    for (var i = 0; i < articles.length; i++) {
+      filtered.splice(articlePositions[i], 0, articles[i]);
+    }
+    this.filteredItems = filtered;
     this._layout();
   };
   // alias to _init for main plugin method

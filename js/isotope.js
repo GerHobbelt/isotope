@@ -198,7 +198,23 @@ var getText = docElem.textContent ?
       hideReveal();
     }
 
+    //this._sort();
+    var filteredElements = [];
+    var articles = [];
+    var articlePositions = this.options.articlePositions;
+    this.filteredItems.forEach(function (item) {
+      if (! $(item.element).hasClass("article")) {
+          filteredElements.push(item);
+      } else {
+          articles.push(item);
+      }
+    });
+    this.filteredItems = filteredElements;
     this._sort();
+    for (var i = 0; i < articles.length; i++) {
+      filtered.splice(articlePositions[i], 0, articles[i]);
+    }
+    this.filteredItems = filtered;
     this._layout();
   };
   // alias to _init for main plugin method
