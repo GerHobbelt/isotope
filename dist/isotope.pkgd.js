@@ -3840,7 +3840,7 @@ var getText = docElem.textContent ?
     this.filteredItems = filteredElements;
     this._sort();
     for (var i = 0; i < articles.length; i++) {
-      filtered.splice(articlePositions[i], 0, articles[i]);
+      filteredElements.splice(articlePositions[i], 0, articles[i]);
     }
     this.filteredItems = filtered;
     this._layout();
