@@ -214,7 +214,7 @@ var getText = docElem.textContent ?
     for (var i = 0; i < articles.length; i++) {
       filteredElements.splice(articlePositions[i], 0, articles[i]);
     }
-    this.filteredItems = filtered;
+    this.filteredItems = filteredElements;
     this._layout();
   };
   // alias to _init for main plugin method
