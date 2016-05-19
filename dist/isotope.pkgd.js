@@ -528,7 +528,7 @@ return getSize;
 }));
 
 /**
- * Fizzy UI utils v2.0.1
+ * Fizzy UI utils v2.0.2
  * MIT license
  */
 
@@ -699,7 +699,8 @@ utils.debounceMethod = function( _class, methodName, threshold ) {
 // ----- docReady ----- //
 
 utils.docReady = function( callback ) {
-  if ( document.readyState == 'complete' ) {
+  var readyState = document.readyState;
+  if ( readyState == 'complete' || readyState == 'interactive' ) {
     callback();
   } else {
     document.addEventListener( 'DOMContentLoaded', callback );
@@ -2810,18 +2811,43 @@ proto._resetLayout = function() {
   this.x = 0;
   this.y = 0;
   this.maxY = 0;
+  this.row = 0;
+  this.rows = [];
   this._getMeasurement( 'gutter', 'outerWidth' );
+
+  if (this.isotope.options.equalheight) {
+    for (var i=0; i < this.isotope.items.length; i++) {
+      this.isotope.items[i].css({
+        height: 'auto'
+      });
+    }
+  }
 };
 
+/**
+  * Working but glicthy with newly appended element via ajax
+  * must reinvoke isotope('layout') to properly realign the horizontal position
+  * after isotope('appended), not sure why?
+  */
 proto._getItemLayoutPosition = function( item ) {
+
   item.getSize();
 
-  var itemWidth = item.size.outerWidth + this.gutter;
+  var itemWidth = item.size.outerWidth;
+
   // if this element cannot fit in the current row
-  var containerWidth = this.isotope.size.innerWidth + this.gutter;
+  // need to add extra pixel to avoid layout dropping in some edge
+  // bootstrap grid in firefox
+  var containerWidth = Math.ceil(this.isotope.size.innerWidth + 1);
+
   if ( this.x !== 0 && itemWidth + this.x > containerWidth ) {
     this.x = 0;
     this.y = this.maxY;
+  }
+ 
+  // New row?
+  if (this.x === 0 && this.y !== 0) {
+    this.row++;
   }
 
   var position = {
@@ -2832,10 +2858,55 @@ proto._getItemLayoutPosition = function( item ) {
   this.maxY = Math.max( this.maxY, this.y + item.size.outerHeight );
   this.x += itemWidth;
 
+  // Compare Y from this row and previous row
+  if (typeof this.rows[this.row] == 'undefined') {
+    this.rows[this.row] = [];
+    this.rows[this.row].start = this.y;
+    this.rows[this.row].end = this.maxY;
+  }
+  else {
+    this.rows[this.row].end = Math.max(this.rows[this.row].end, this.maxY);
+  }
+
+  // Record row number to item
+  item.row = this.row;
+
   return position;
 };
 
+proto._equalHeight = function() {
+  
+  // Should we use this.isotope.filteredItems or this.isotope.items?
+  
+  for (var i=0; i < this.isotope.items.length; i++) {
+    var row = this.isotope.items[i].row,
+        data = this.rows[row];
+    
+    if (data) {
+      var height =  data.end - data.start;
+
+      height -= this.isotope.items[i].size.borderTopWidth + this.isotope.items[i].size.borderBottomWidth;
+      height -= this.isotope.items[i].size.marginTop + this.isotope.items[i].size.marginBottom;
+      height -= this.gutter.height || 0;
+      
+      if (this.isotope.items[i].size.isBorderBox === false) {
+        height -= this.isotope.items[i].size.paddingTop + this.isotope.items[i].size.paddingBottom;
+      }
+      
+      this.isotope.items[i].size.height = height;
+      
+      this.isotope.items[i].css({
+        height : height.toString() + 'px',
+      });
+    }
+  }
+};
+
 proto._getContainerSize = function() {
+  if (this.isotope.options.equalheight) {
+    this._equalHeight();
+  }
+
   return { height: this.maxY };
 };
 
