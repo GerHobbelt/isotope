@@ -18,8 +18,8 @@
     );
   } else {
     // browser global
-    window.Isotope = window.Isotope || {};
-    window.Isotope.Item = factory(
+    window.NxIsotope = window.NxIsotope || {};
+    window.NxIsotope.Item = factory(
       window.Outlayer
     );
   }

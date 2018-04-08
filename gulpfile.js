@@ -82,7 +82,7 @@ gulp.task( 'requirejs', function() {
     }) )
     // add banner
     .pipe( addBanner( banner ) )
-    .pipe( rename('isotope.pkgd.js') )
+    .pipe( rename('nx-isotope.pkgd.js') )
     .pipe( gulp.dest('dist') );
 });
 
@@ -93,11 +93,11 @@ var uglify = require('gulp-uglify');
 
 gulp.task( 'uglify', [ 'requirejs' ], function() {
   var banner = getBanner();
-  gulp.src('dist/isotope.pkgd.js')
+  gulp.src('dist/nx-isotope.pkgd.js')
     .pipe( uglify() )
     // add banner
     .pipe( addBanner( banner ) )
-    .pipe( rename('isotope.pkgd.min.js') )
+    .pipe( rename('nx-isotope.pkgd.min.js') )
     .pipe( gulp.dest('dist') );
 });
 

@@ -19,7 +19,7 @@
   } else {
     // browser global
     factory(
-      window.Isotope.LayoutMode
+      window.NxIsotope.LayoutMode
     );
   }
 

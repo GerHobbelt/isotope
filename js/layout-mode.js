@@ -20,8 +20,8 @@
     );
   } else {
     // browser global
-    window.Isotope = window.Isotope || {};
-    window.Isotope.LayoutMode = factory(
+    window.NxIsotope = window.NxIsotope || {};
+    window.NxIsotope.LayoutMode = factory(
       window.getSize,
       window.Outlayer
     );

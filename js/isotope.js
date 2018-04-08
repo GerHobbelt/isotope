@@ -1,11 +1,13 @@
 /*!
- * Isotope v3.0.5
- *
+ * Isotope v3.0.99
+ * [Nexbit Fork]
+ * 
  * Licensed GPLv3 for open source use
  * or Isotope Commercial License for commercial use
  *
  * https://isotope.metafizzy.co
- * Copyright 2017 Metafizzy
+ * https://github.com/Nexbit/isotope
+ * Copyright 2017 Metafizzy (repackaged under GPLv3 by Paolo Furini)
  */
 
 ( function( window, factory ) {
@@ -23,7 +25,8 @@
         // include default layout modes
         './layout-modes/masonry',
         './layout-modes/fit-rows',
-        './layout-modes/vertical'
+        './layout-modes/vertical',
+        './layout-modes/packery-mode'
       ],
       function( Outlayer, getSize, matchesSelector, utils, Item, LayoutMode ) {
         return factory( window, Outlayer, getSize, matchesSelector, utils, Item, LayoutMode );
@@ -41,18 +44,19 @@
       // include default layout modes
       require('./layout-modes/masonry'),
       require('./layout-modes/fit-rows'),
-      require('./layout-modes/vertical')
+      require('./layout-modes/vertical'),
+      require('./layout-modes/packery-mode')
     );
   } else {
     // browser global
-    window.Isotope = factory(
+    window.NxIsotope = factory(
       window,
       window.Outlayer,
       window.getSize,
       window.matchesSelector,
       window.fizzyUIUtils,
-      window.Isotope.Item,
-      window.Isotope.LayoutMode
+      window.NxIsotope.Item,
+      window.NxIsotope.LayoutMode
     );
   }
 
@@ -78,7 +82,7 @@ var trim = String.prototype.trim ?
 // -------------------------- isotopeDefinition -------------------------- //
 
   // create an Outlayer layout class
-  var Isotope = Outlayer.create( 'isotope', {
+  var Isotope = Outlayer.create( 'nxIsotope', {
     layoutMode: 'masonry',
     isJQueryFiltering: true,
     sortAscending: true

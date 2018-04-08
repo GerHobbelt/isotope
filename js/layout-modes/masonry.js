@@ -11,20 +11,20 @@
     // AMD
     define( [
         '../layout-mode',
-        'masonry-layout/masonry'
+        '../../libs/masonry'
       ],
       factory );
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory(
       require('../layout-mode'),
-      require('masonry-layout')
+      require('../../libs/masonry')
     );
   } else {
     // browser global
     factory(
-      window.Isotope.LayoutMode,
-      window.Masonry
+      window.NxIsotope.LayoutMode,
+      window.NxMasonry
     );
   }
 
