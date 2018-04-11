@@ -1,5 +1,5 @@
 /*!
- * Isotope PACKAGED v3.0.99
+ * Isotope PACKAGED v3.0.100
  * [Nexbit Fork]
  * 
  * Licensed GPLv3 for open source use
@@ -7,7 +7,7 @@
  *
  * https://isotope.metafizzy.co
  * https://github.com/Nexbit/isotope
- * Copyright 2017 Metafizzy (repackaged under GPLv3 by Paolo Furini)
+ * Copyright 2010-2018 Metafizzy (repackaged under GPLv3 by Paolo Furini)
  */
 
 /**
@@ -268,22 +268,19 @@ return EvEmitter;
 }));
 
 /*!
- * getSize v2.0.2
+ * getSize v2.0.3
  * measure size of elements
  * MIT license
  */
 
-/*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: false, module: false, console: false */
+/* jshint browser: true, strict: true, undef: true, unused: true */
+/* globals console: false */
 
 ( function( window, factory ) {
-  'use strict';
-
+  /* jshint strict: false */ /* globals define, module */
   if ( typeof define == 'function' && define.amd ) {
     // AMD
-    define( 'get-size/get-size',[],function() {
-      return factory();
-    });
+    define( 'get-size/get-size',factory );
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory();
@@ -358,7 +355,7 @@ function getStyle( elem ) {
   if ( !style ) {
     logError( 'Style returned ' + style +
       '. Are you running this code in a hidden iframe on Firefox? ' +
-      'See http://bit.ly/getsizebug1' );
+      'See https://bit.ly/getsizebug1' );
   }
   return style;
 }
@@ -384,8 +381,8 @@ function setup() {
   // -------------------------- box sizing -------------------------- //
 
   /**
-   * WebKit measures the outer-width on style.width on border-box elems
-   * IE & Firefox<29 measures the inner-width
+   * Chrome & Safari measure the outer-width on style.width on border-box elems
+   * IE11 & Firefox<29 measures the inner-width
    */
   var div = document.createElement('div');
   div.style.width = '200px';
@@ -397,10 +394,11 @@ function setup() {
   var body = document.body || document.documentElement;
   body.appendChild( div );
   var style = getStyle( div );
+  // round value for browser zoom. desandro/masonry#928
+  isBoxSizeOuter = Math.round( getStyleSize( style.width ) ) == 200;
+  getSize.isBoxSizeOuter = isBoxSizeOuter;
 
-  getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize( style.width ) == 200;
   body.removeChild( div );
-
 }
 
 // -------------------------- getSize -------------------------- //
@@ -4188,7 +4186,7 @@ return Packery;
 }));
 
 /*!
- * Isotope v3.0.99
+ * Isotope v3.0.100
  * [Nexbit Fork]
  * 
  * Licensed GPLv3 for open source use
@@ -4196,7 +4194,7 @@ return Packery;
  *
  * https://isotope.metafizzy.co
  * https://github.com/Nexbit/isotope
- * Copyright 2017 Metafizzy (repackaged under GPLv3 by Paolo Furini)
+ * Copyright 2010-2018 Metafizzy (repackaged under GPLv3 by Paolo Furini)
  */
 
 ( function( window, factory ) {
