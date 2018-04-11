@@ -1,5 +1,5 @@
 /*!
- * Isotope v3.0.99
+ * Isotope v3.0.100
  * [Nexbit Fork]
  * 
  * Licensed GPLv3 for open source use
@@ -7,7 +7,7 @@
  *
  * https://isotope.metafizzy.co
  * https://github.com/Nexbit/isotope
- * Copyright 2017 Metafizzy (repackaged under GPLv3 by Paolo Furini)
+ * Copyright 2010-2018 Metafizzy (repackaged under GPLv3 by Paolo Furini)
  */
 
 ( function( window, factory ) {
