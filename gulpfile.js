@@ -4,6 +4,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
+var sourcemaps = require('gulp-sourcemaps');
 
 // ----- hint ----- //
 
@@ -94,10 +95,12 @@ var uglify = require('gulp-uglify');
 gulp.task( 'uglify', [ 'requirejs' ], function() {
   var banner = getBanner();
   gulp.src('dist/nx-isotope.pkgd.js')
+    .pipe( sourcemaps.init() )
     .pipe( uglify() )
     // add banner
     .pipe( addBanner( banner ) )
     .pipe( rename('nx-isotope.pkgd.min.js') )
+    .pipe( sourcemaps.write('./') )
     .pipe( gulp.dest('dist') );
 });
 
