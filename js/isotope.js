@@ -1,5 +1,5 @@
 /*!
- * Isotope v3.0.6
+ * Isotope v3.0.7
  *
  * Licensed GPLv3 for open source use
  * or Isotope Commercial License for commercial use
@@ -192,6 +192,12 @@ var trim = String.prototype.trim ?
   proto._hideReveal = function( filtered ) {
     this.reveal( filtered.needReveal );
     this.hide( filtered.needHide );
+    filtered.needHide.forEach((item, index, array) => {
+      item.element.classList.add('isotope-hidden');
+    })
+    filtered.needReveal.forEach(item => {
+      item.element.classList.remove('isotope-hidden');
+    })
   };
 
   // HACK
