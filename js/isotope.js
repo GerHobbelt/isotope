@@ -192,12 +192,12 @@ var trim = String.prototype.trim ?
   proto._hideReveal = function( filtered ) {
     this.reveal( filtered.needReveal );
     this.hide( filtered.needHide );
-    filtered.needHide.forEach((item, index, array) => {
+    filtered.needHide.forEach(function (item, index, array) {
       item.element.classList.add('isotope-hidden');
-    })
-    filtered.needReveal.forEach(item => {
+    });
+    filtered.needReveal.forEach(function (item) {
       item.element.classList.remove('isotope-hidden');
-    })
+    });
   };
 
   // HACK
